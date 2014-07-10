@@ -18,8 +18,6 @@ Pour installer l'application skiMe, la machine doit disposer de :
 6. Modifier le fichier "app/app.json", sous l'attribut "js" modifier l'adresse d'accès à socket.io
 7. Terminé !
 
-Note: Le compte d'utilisateur et mot de passes pour la base de donnée en local sont "skime" et "root", sur le serveur ogo.heig-vd.ch "webtb1" et "6w550nin"
-
 GUIDE DE DEMARRAGE :
 Afin que l'application démarre en local il faut démarrer les services suivant:
 1. Apache
