@@ -1,8 +1,8 @@
 GUIDE D'INSTALLATION :
 ==============
 
-Pour installer l'application skiMe, la machine doit disposer de :
---------------
+**Pour installer l'application skiMe, la machine doit disposer de :**
+
 - PHP 5.4
 - Apache 2.4
 - PostgresSQL
@@ -26,6 +26,7 @@ Marche à suivre
 GUIDE DE DEMARRAGE :
 --------------
 Afin que l'application démarre en local il faut démarrer les services suivant:
+
 1. Apache
 2. Serveur postgreSQL
 3. Serveur web sockets
