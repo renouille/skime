@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-model-Lift'>/**
+</span> * Model to manage the Lift informations
+ * 
+ * Fields:
+ * -- id:      Id of Lift
+ * -- version: version of the Lift
+ * -- tstamp:  Creation timestamp of the Lift
+ * -- tags:    Tags of the Lift
+ * -- geojson: GeoJSON defining the geometry of the Lift
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.model.Lift', {
+	extend: 'Ext.data.Model',
+	config: {
+<span id='skiMe-model-Lift-cfg-fields'>		fields: [
+</span>			{ name: 'id', type: 'int' }, 
+			{ name: 'version', type: 'int' }, 
+			{ name: 'tstamp', type: 'date' }, 
+			{ name: 'tags', type: 'string'},
+			{ name: 'geojson', type: 'string'}
+		],
+
+<span id='skiMe-model-Lift-cfg-idProperty'>		idProperty: 'id',
+</span><span id='skiMe-model-Lift-cfg-proxy'>		proxy: {
+</span>			type:'rest',
+			url: skiMe.config.Config.getWebservices()+'/lifts',
+			reader: {
+				type:'json',
+				rootProperty: 'lifts',
+				successProperty: 'success'
+			},
+			headers: {                
+				'Accept': 'application/json'                 
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

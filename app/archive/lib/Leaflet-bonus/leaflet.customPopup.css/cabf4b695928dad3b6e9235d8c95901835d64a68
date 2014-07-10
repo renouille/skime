@@ -1,0 +1,14 @@
+/*cabf4b695928dad3b6e9235d8c95901835d64a68*/.customPopup {
+	
+}
+
+.customPopup:before {
+	border-right: 6px solid black;
+	border-right-color: inherit;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	content: "";
+	position: absolute;
+	top: 5px;
+	left: -10px;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-model-Resort'>/**
+</span> * Model to manage the Resort informations
+ * 
+ * Fields:
+ * -- id:               Id of the Resort
+ * -- name:             Name of the Resort
+ * -- boundaries:       Boundaries of the Resort
+ * -- description:      Description of the Resort
+ * -- pisteskm:         Number of kilometers of pistes of the Resort
+ * -- liftsnumber:      Number of lifts of the Resort
+ * -- seasonstart:      Start date of the season
+ * -- seasonend:        End date of the season
+ * -- openfrom: 		Opening time of the Resort
+ * -- openuntil:        Closing time of the Resort
+ * -- website:          Website url of the Resort
+ * -- country_code:     Code of the associated Country
+ * -- contact_tourism   Tel. number of the tourism office of the Resort
+ * -- contact_lifts     Tel. number of the lifts company of the Resort
+ *
+ * Belongs to: 
+ * -- Country
+ *
+ * Has one:
+ * -- Profile Picture
+ *
+ * Has many:
+ * -- Webcams
+ * -- Pictures
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.model.Resort', {
+	extend: 'Ext.data.Model',
+	config: {
+<span id='skiMe-model-Resort-cfg-fields'>		fields: [
+</span>			{ name: 'id', type: 'int' }, 
+			{ name: 'name', type: 'string' }, 
+			{ name: 'boundaries', type: 'string' }, 
+			{ name: 'description', type: 'string'},
+			{ name: 'pisteskm', type: 'float'},
+			{ name: 'liftsnumber', type: 'int'},
+			{ name: 'seasonstart', type: 'date'},
+			{ name: 'seasonend', type: 'date'},
+			{ name: 'openfrom', type: 'int'},
+			{ name: 'openuntil', type: 'int'},
+			{ name: 'website', type: 'string'},
+			{ name: 'country_code', type: 'string' },
+			{ name: 'contact_tourism', type: 'string'},
+			{ name: 'contact_lifts', type: 'string'}
+		],
+<span id='skiMe-model-Resort-cfg-validations'>		validations : [{
+</span>            type : 'presence',
+            name : 'name',
+            message : &quot;A name is required&quot;
+        }],
+<span id='skiMe-model-Resort-cfg-idProperty'>		idProperty: 'id',
+</span><span id='skiMe-model-Resort-cfg-belongsTo'>		belongsTo: [{
+</span>			name:'country',
+			instanceName:'country',
+			model:'skiMe.model.Country',
+			getterName:'getCountry',
+			setterName:'setCountry',
+			associationKey:'country',
+			primaryKey: 'code',
+			foreignKey: 'country_code'
+		}],
+<span id='skiMe-model-Resort-cfg-hasOne'>		hasOne: [{
+</span>			name:'profilePicture',
+			instanceName:'profilePicture',
+			model:'skiMe.model.ProfilePicture',
+			associationKey:'profilePicture',
+			getterName: 'getProfilePicture',
+			setterName: 'setProfilePicture'
+		}],
+<span id='skiMe-model-Resort-cfg-hasMany'>		hasMany: [{
+</span>			name:'pictures',
+			instanceName:'pictures',
+			model:'skiMe.model.Picture',
+			associationKey:'pictures'
+		}, {
+			name:'webcams',
+			instanceName:'webcams',
+			model:'skiMe.model.Webcam',
+			associationKey:'webcams'
+		}],
+<span id='skiMe-model-Resort-cfg-proxy'>		proxy: {
+</span>			type:'rest',
+			url: skiMe.config.Config.getWebservices()+'/resorts',
+			reader: {
+				type:'json',
+				rootProperty: 'resort',
+				successProperty: 'success'
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

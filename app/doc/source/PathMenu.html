@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-PathMenu'>/**
+</span> *  Menu buttons insired by the &quot;Path&quot; application
+ *  @author: Bruno Tavares / Modified by René Grossmann
+ *  @source: https://github.com/brunotavares/SenchaExamples/tree/master/touch/native-to-web-path-menu
+ */
+
+Ext.define('skiMe.view.PathMenu',{
+    extend: 'Ext.Panel',
+    xtype: 'pathmenu',
+    config: {
+<span id='skiMe-view-PathMenu-cfg-cls'>        cls: Ext.baseCSSPrefix + 'pathmenu',
+</span><span id='skiMe-view-PathMenu-cfg-items'>        items: [{
+</span>            xtype: 'container',
+            cls: Ext.baseCSSPrefix + 'pathmenu-body',
+            defaultType: 'button',
+            items: [{
+                ui: 'path',
+                itemId: 'mainButton',
+                text: '+',
+            },{
+				iconCls: 'param',
+                itemId: 'paramButton'
+			},{
+				iconCls: 'comment',
+                itemId: 'statusButton'
+			},{
+				
+                iconCls: 'group',
+                itemId: 'newGroupButton'
+			}, {
+				iconCls: 'direction',
+                itemId: 'navigationButton'
+			},{
+				iconCls: 'location',
+                itemId: 'locationButton'
+            }]
+        }],
+<span id='skiMe-view-PathMenu-cfg-listeners'>        listeners: [{
+</span>            delegate: '#mainButton',
+            event: 'tap',
+            fn: 'onMainButtonTap'
+        }, {
+            delegate: '#paramButton',
+            event: 'tap',
+            fn: 'onParamButtonTap'
+        }, {
+            delegate: '#newGroupButton',
+            event: 'tap',
+            fn: 'onNewGroupButtonTap'
+        }, {
+            delegate: '#statusButton',
+            event: 'tap',
+            fn: 'onStatusButtonTap'
+        }, {
+            delegate: '#navigationButton',
+            event: 'tap',
+            fn: 'onNavigationButtonTap'
+        }, {
+            delegate: '#locationButton',
+            event: 'tap',
+            fn: 'onLocationButtonTap'
+        }]
+    },
+    
+<span id='skiMe-view-PathMenu-method-onMainButtonTap'>    /**
+</span>     * Display or hide the 5 buttons with animation
+     * @param  {Ext.Button} btn Main button of the Path style menu
+     */
+    onMainButtonTap: function(btn) {
+        var pressedCls = Ext.baseCSSPrefix + 'button-pressed';
+        
+        btn.pressed = !btn.pressed;
+        
+        if (btn.pressed) {
+            btn.addCls(pressedCls);
+            this.fanOut();
+        }
+        else {
+            btn.removeCls(pressedCls);
+            this.fanIn();
+        }
+    },
+
+<span id='skiMe-view-PathMenu-method-onParamButtonTap'>    /**
+</span>     * Fires an event to notify the &quot;parameter&quot; button was tapped
+     */
+    onParamButtonTap: function() {
+        this.fireEvent('paramsTap');
+    },
+
+<span id='skiMe-view-PathMenu-method-onNewGroupButtonTap'>    /**
+</span>     * Fires an event to notify the &quot;create Group&quot; button was tapped
+     */
+    onNewGroupButtonTap: function() {
+        this.fireEvent('newGroupTap');
+    },
+
+<span id='skiMe-view-PathMenu-method-onStatusButtonTap'>    /**
+</span>     * Fires an event to notify the &quot;update Status&quot; button was tapped
+     */
+    onStatusButtonTap: function() {
+        this.fireEvent('statusTap');
+    },
+
+<span id='skiMe-view-PathMenu-method-onNavigationButtonTap'>    /**
+</span>     * Fires an event to notify the &quot;Start navigation&quot; button was tapped
+     */
+    onNavigationButtonTap: function() {
+        this.fireEvent('navigationTap');
+    },
+
+<span id='skiMe-view-PathMenu-method-onLocationButtonTap'>    /**
+</span>     * Fires an event to notify the &quot;checkin&quot; button was tapped
+     */
+    onLocationButtonTap: function() {
+        this.fireEvent('checkinTap');
+    },
+    
+<span id='skiMe-view-PathMenu-method-fanOut'>    /**
+</span>     * Set up the &quot;fan out&quot; animation to display
+     */
+    fanOut:  function() {
+        this.getComponent(0).items.each(this.fanOutItem, this);
+    },
+    
+<span id='skiMe-view-PathMenu-method-fanIn'>    /**
+</span>     * Set up the &quot;fan in&quot; animation to display
+     */
+    fanIn:  function() {
+        this.getComponent(0).items.each(this.fanInItem, this);
+    },
+    
+<span id='skiMe-view-PathMenu-method-fanOutItem'>    //@private
+</span>    fanOutItem: function(item, index, len) {
+        var angle, rad, sin, cos, x, y, style, difCenter,
+            arc     = 90,
+            distance= 150;
+        
+        //ignore main button
+        if (index === 0) {
+            return;
+        }
+        index--;
+        len--;
+        
+        //calculate angle using items count
+        if (len === 1) {
+            angle = 0;
+        }
+        else {
+            angle = (arc/(len-1)) * index;
+        }
+        
+        //transform angle to rad
+        rad = angle * Math.PI/180;
+        
+        //calculate cos and sin
+        cos = Math.cos(rad);
+        sin = Math.sin(rad);
+        
+        //find x,y using distance
+        x = Math.ceil(distance * cos);
+        y = Math.ceil(distance * sin * -1);
+        
+        style = {
+            '-webkit-transition-delay': (30 * index) + 'ms',
+            '-webkit-transform': 'translate3d('+x+'px, '+y+'px, 0)',
+            'transition-delay': (30 * index) + 'ms',
+            'transform': 'translate3d('+x+'px, '+y+'px, 0)'
+        };
+        
+        if (!item.rendered) {
+            item.style = style;
+        }
+        else {
+            item.element.applyStyles(style);
+        }
+    },
+    
+<span id='skiMe-view-PathMenu-method-fanInItem'>    //@private
+</span>    fanInItem: function(item, index, len) {
+        //ignore main button
+        if (index === 0) {
+            return;
+        }
+        
+        var style = {
+            '-webkit-transition-delay': (30 * index) + 'ms',
+            '-webkit-transform': 'translate3d(0px, 0px, 0)',
+            'transition-delay': (30 * index) + 'ms',
+            'transform': 'translate3d(0px, 0px, 0)'
+        };
+        
+        if (!item.rendered) {
+            item.style = style;
+        }
+        else {
+            item.element.applyStyles(style);
+        }
+    }
+});</pre>
+</body>
+</html>

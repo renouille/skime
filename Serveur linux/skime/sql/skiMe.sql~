@@ -1,0 +1,312 @@
+-- Database generated with pgModeler (PostgreSQL Database Modeler).
+-- PostgreSQL version: 9.2
+-- Project Site: pgmodeler.com.br
+-- Model Author: René Grossmann
+
+SET check_function_bodies = false;
+-- ddl-end --
+
+
+-- Database creation must be done outside an multicommand file.
+-- These commands were put in this file only for convenience.
+-- -- object: "skiMe" | type: DATABASE --
+-- CREATE DATABASE "skiMe"
+-- 	ENCODING = 'UTF8'
+-- ;
+-- -- ddl-end --
+-- 
+
+-- object: public."GENDER" | type: TYPE --
+CREATE TYPE public.GENDER AS
+ ENUM ('undefined','man','women');
+-- ddl-end --
+
+-- object: public."SPORT" | type: TYPE --
+CREATE TYPE public.SPORT AS
+ ENUM ('ski','snowboard','telemark','snowblades','nordic','monoski');
+-- ddl-end --
+
+-- object: public."User" | type: TABLE --
+CREATE TABLE public."User"(
+	id bigint NOT NULL,
+	email varchar(90) NOT NULL,
+	name varchar(32) NOT NULL,
+	pwd_hash varchar(64) NOT NULL,
+	pwd_salt varchar(64) NOT NULL,
+	gender public.GENDER NOT NULL,
+	sport public.SPORT NOT NULL,
+	favResort varchar(32),
+	status varchar(140),
+	topSpeed integer,
+	distanceTraveled integer,
+	CONSTRAINT "userId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."Group" | type: TABLE --
+CREATE TABLE public."Group"(
+	id bigint NOT NULL,
+	name varchar(32) NOT NULL,
+	CONSTRAINT "groupId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."Picture" | type: TABLE --
+CREATE TABLE public."Picture"(
+	id bigint NOT NULL,
+	title varchar(32),
+	description varchar(140),
+	timestamp timestamp NOT NULL,
+	position geometry(POINT, 0),
+	isProfile boolean NOT NULL DEFAULT false,
+	url varchar(90) NOT NULL,
+	Thumbnail_id bigint,
+	Event_id bigint,
+	Resort_id bigint,
+	CONSTRAINT "pictureId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."Checkin" | type: TABLE --
+CREATE TABLE public."Checkin"(
+	id bigint NOT NULL,
+	timestamp timestamp NOT NULL,
+	position geometry(POINT, 0) NOT NULL,
+	Event_id bigint,
+	CONSTRAINT "checkinId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."MeetingPoint" | type: TABLE --
+CREATE TABLE public."MeetingPoint"(
+	id bigint NOT NULL,
+	timestamp timestamp NOT NULL,
+	position geometry(POINT, 0) NOT NULL,
+	isActive boolean NOT NULL DEFAULT true,
+	title varchar(32),
+	Event_id bigint,
+	CONSTRAINT "meetingPointId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."EventType" | type: TABLE --
+CREATE TABLE public."EventType"(
+	id bigint NOT NULL,
+	type varchar(32) NOT NULL,
+	CONSTRAINT "eventTypeId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."Event" | type: TABLE --
+CREATE TABLE public."Event"(
+	id bigint NOT NULL,
+	timestamp timestamp NOT NULL,
+	EventType_id bigint NOT NULL,
+	User_id bigint NOT NULL,
+	Group_id bigint,
+	CONSTRAINT "eventId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."Resort" | type: TABLE --
+CREATE TABLE public."Resort"(
+	id bigint NOT NULL,
+	name varchar(32) NOT NULL,
+	boundaries box NOT NULL,
+	description varchar(320),
+	pistesKM integer,
+	liftsNumber integer,
+	seasonStart date,
+	seasonEnd date,
+	openFrom time,
+	openUntil time,
+	contact varchar(19),
+	Country_code varchar(3) NOT NULL,
+	CONSTRAINT "resortId" PRIMARY KEY (id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."Country" | type: TABLE --
+CREATE TABLE public."Country"(
+	code varchar(3) NOT NULL,
+	name varchar NOT NULL,
+	CONSTRAINT "countryId" PRIMARY KEY (code)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: public."NotificationReadHistory" | type: TABLE --
+CREATE TABLE public."NotificationReadHistory"(
+	timestamp timestamp NOT NULL,
+	User_id bigint,
+	Event_id bigint,
+	CONSTRAINT "NotificationReadHistoryId" PRIMARY KEY (User_id,Event_id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: "User_id" | type: CONSTRAINT --
+ALTER TABLE public."NotificationReadHistory" ADD CONSTRAINT "User_id" FOREIGN KEY (User_id)
+REFERENCES public."User" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Event_id" | type: CONSTRAINT --
+ALTER TABLE public."NotificationReadHistory" ADD CONSTRAINT "Event_id" FOREIGN KEY (Event_id)
+REFERENCES public."Event" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "User_id" | type: CONSTRAINT --
+ALTER TABLE public."Event" ADD CONSTRAINT "User_id" FOREIGN KEY (User_id)
+REFERENCES public."User" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: public."GroupMember" | type: TABLE --
+CREATE TABLE public."GroupMember"(
+	User_id bigint,
+	Group_id bigint,
+	CONSTRAINT "GroupMember_id" PRIMARY KEY (User_id,Group_id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: "User_id" | type: CONSTRAINT --
+ALTER TABLE public."GroupMember" ADD CONSTRAINT "User_id" FOREIGN KEY (User_id)
+REFERENCES public."User" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Group_id" | type: CONSTRAINT --
+ALTER TABLE public."GroupMember" ADD CONSTRAINT "Group_id" FOREIGN KEY (Group_id)
+REFERENCES public."Group" (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Group_id" | type: CONSTRAINT --
+ALTER TABLE public."Event" ADD CONSTRAINT "Group_id" FOREIGN KEY (Group_id)
+REFERENCES public."Group" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "EventType_id" | type: CONSTRAINT --
+ALTER TABLE public."Event" ADD CONSTRAINT "EventType_id" FOREIGN KEY (EventType_id)
+REFERENCES public."EventType" (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Event_id" | type: CONSTRAINT --
+ALTER TABLE public."Checkin" ADD CONSTRAINT "Event_id" FOREIGN KEY (Event_id)
+REFERENCES public."Event" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Checkin_uq" | type: CONSTRAINT --
+ALTER TABLE public."Checkin" ADD CONSTRAINT "Checkin_uq" UNIQUE (Event_id);
+-- ddl-end --
+
+
+-- object: "Event_id" | type: CONSTRAINT --
+ALTER TABLE public."MeetingPoint" ADD CONSTRAINT "Event_id" FOREIGN KEY (Event_id)
+REFERENCES public."Event" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "MeetingPoint_uq" | type: CONSTRAINT --
+ALTER TABLE public."MeetingPoint" ADD CONSTRAINT "MeetingPoint_uq" UNIQUE (Event_id);
+-- ddl-end --
+
+
+-- object: "Country_id" | type: CONSTRAINT --
+ALTER TABLE public."Resort" ADD CONSTRAINT "Country_id" FOREIGN KEY (Country_code)
+REFERENCES public."Country" (code) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: thumbnail_id | type: CONSTRAINT --
+ALTER TABLE public."Picture" ADD CONSTRAINT thumbnail_id FOREIGN KEY (Thumbnail_id)
+REFERENCES public."Picture" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Picture_uq" | type: CONSTRAINT --
+ALTER TABLE public."Picture" ADD CONSTRAINT "Picture_uq" UNIQUE (Thumbnail_id);
+-- ddl-end --
+
+
+-- object: "Event_id" | type: CONSTRAINT --
+ALTER TABLE public."Picture" ADD CONSTRAINT "Event_id" FOREIGN KEY (Event_id)
+REFERENCES public."Event" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Picture_uq1" | type: CONSTRAINT --
+ALTER TABLE public."Picture" ADD CONSTRAINT "Picture_uq1" UNIQUE (Event_id);
+-- ddl-end --
+
+
+-- object: "Resort_id" | type: CONSTRAINT --
+ALTER TABLE public."Picture" ADD CONSTRAINT "Resort_id" FOREIGN KEY (Resort_id)
+REFERENCES public."Resort" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: public."ManyUsersHaveManyFriends" | type: TABLE --
+CREATE TABLE public."FriendList"(
+	User_id bigint,
+	Friend_id bigint,
+	CONSTRAINT "FriendList_id" PRIMARY KEY (User_id,Friend_id)
+);
+-- ddl-end --
+
+-- ddl-end --
+
+-- object: "User_id" | type: CONSTRAINT --
+ALTER TABLE public."FriendList" ADD CONSTRAINT "User_id" FOREIGN KEY (User_id)
+REFERENCES public."User" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+-- object: "Friend_id" | type: CONSTRAINT --
+ALTER TABLE public."FriendList" ADD CONSTRAINT "Friend_id" FOREIGN KEY (Friend_id)
+REFERENCES public."User" (id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE;
+-- ddl-end --
+
+
+
+

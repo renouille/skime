@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-AddGroupPanel'>/**
+</span> * Panel containing a list to select Groups
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.AddGroupPanel', {
+    extend: 'Ext.Panel',
+    xtype: 'addGroupPanel',
+    config: {
+<span id='skiMe-view-AddGroupPanel-cfg-itemId'>        itemId: 'addGroupPanel',
+</span><span id='skiMe-view-AddGroupPanel-cfg-modal'>        modal: true,
+</span><span id='skiMe-view-AddGroupPanel-cfg-height'>        height: '70%',
+</span><span id='skiMe-view-AddGroupPanel-cfg-bottom'>        bottom: 0,
+</span><span id='skiMe-view-AddGroupPanel-cfg-right'>        right: 0,
+</span><span id='skiMe-view-AddGroupPanel-cfg-left'>        left: 0,
+</span><span id='skiMe-view-AddGroupPanel-cfg-zIndex'>        zIndex: 100,
+</span><span id='skiMe-view-AddGroupPanel-cfg-layout'>        layout: {
+</span>            type : 'hbox',
+            align: 'stretch'
+        },
+<span id='skiMe-view-AddGroupPanel-cfg-showAnimation'>        showAnimation: {
+</span>            type: 'slideIn',
+            direction: 'up'
+        },
+<span id='skiMe-view-AddGroupPanel-cfg-hideAnimation'>        hideAnimation: {
+</span>            type: 'slideOut',
+            direction: 'down'
+        },
+<span id='skiMe-view-AddGroupPanel-cfg-items'>        items:[{
+</span>            xtype: 'titlebar',
+            title: 'select a group',
+            docked: 'top', 
+            items: [{
+                xtype: 'button',
+                align : 'left',
+                itemId: 'addGroupPanelCloseBtn',
+                name : 'closeBtn',
+                iconCls : 'remove',
+                cls: 'sm-titlebar-button'
+            }]
+        }, {
+            xtype: 'list',
+            itemId: 'addGroupList',
+            disableSelection: true,
+            store: 'groupStore',
+            itemTpl: [
+                '&lt;div class=&quot;sm-listItem&quot;&gt;',
+                    '&lt;img class=&quot;list-profilePic&quot; src=&quot;'+skiMe.config.Config.getSkimeUrl()+'/files/img/default/group.jpg&quot; /&gt;',
+                    '&lt;span class=&quot;list-name&quot;&gt;{name}&lt;/span&gt;',
+                '&lt;/div&gt;'
+            ],
+            flex: 1
+        }],
+<span id='skiMe-view-AddGroupPanel-cfg-listeners'>        listeners: [{
+</span>            delegate: '#addGroupPanelCloseBtn',
+            event: 'tap',
+            fn: 'onAddGroupPanelCloseBtnTap'
+        }]
+    },
+
+<span id='skiMe-view-AddGroupPanel-method-onAddGroupPanelCloseBtnTap'>    /**
+</span>     * Fire an event to notify the &quot;close&quot; button was tapped
+     */
+    onAddGroupPanelCloseBtnTap: function() {
+        this.fireEvent('addGroupPanelCloseBtnTap');
+    }
+});</pre>
+</body>
+</html>

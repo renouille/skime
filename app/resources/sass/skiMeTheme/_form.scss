@@ -1,0 +1,21 @@
+
+.x-form {
+    .x-scroll-container {
+        background-color: $background-color;
+    }
+}
+
+.x-form-label {
+    background-color: transparent;
+    
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    span {
+        font-weight: normal;
+        font-size: $base-font-size;
+        line-height: $base-font-family;
+        font-family: $base-font-family;
+        color: $black;
+    }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-model-Event'>/**
+</span> * Model to manage the Event informations
+ * 
+ * Fields:
+ * -- id: Id of the Event
+ * -- timestamp: Creations time of the Event
+ * -- eventtype_id: Id of associated the Eventtype of the Event
+ * -- user_id: Id of the associated User
+ * -- group_id: Id of the associated Group
+ *
+ * Belongs to: 
+ * -- User
+ * -- Group
+ *
+ * Has many:
+ * -- Notifications
+ *
+ * @author René Grossmann
+ */
+
+
+Ext.define('skiMe.model.Event', {
+	extend: 'Ext.data.Model',
+	config: {
+<span id='skiMe-model-Event-cfg-fields'>		fields: [
+</span>			{ name: 'id', type: 'int' }, 
+			{ name: 'timestamp', type: 'string' }, 
+			{ name: 'eventtype_id', type: 'int' },
+			{ name: 'user_id', type: 'int'},
+			{ name: 'group_id', type: 'int'}
+		],
+<span id='skiMe-model-Event-cfg-idProperty'>		idProperty: 'id',
+</span><span id='skiMe-model-Event-cfg-belongsTo'>		belongsTo: [{
+</span>			name:'group',
+			instanceName:'group',
+			model:'skiMe.model.Group',
+			getterName:'getGroup',
+			setterName:'setGroup',
+			associationKey:'group',
+		}, {
+			name:'user',
+			instanceName:'user',
+			model:'skiMe.model.User',
+			getterName:'getUser',
+			setterName:'setUser',
+			associationKey:'user',
+		}],
+<span id='skiMe-model-Event-cfg-hasMany'>		hasMany: [{
+</span>			name:'notifications',
+			instanceName:'notifications',
+			model:'skiMe.model.UserNotification',
+			associationKey:'notifications',
+		}],
+<span id='skiMe-model-Event-cfg-proxy'>		proxy: {
+</span>			type:'rest',
+			url: skiMe.config.Config.getWebservices()+'/events',
+			reader: {
+				type:'json',
+				rootProperty: 'events',
+				successProperty: 'success'
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

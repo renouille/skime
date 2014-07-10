@@ -1,0 +1,34 @@
+/**
+* font sizes
+*/
+$font-size-small: 8pt !default;
+$font-size-normal: 10pt !default;
+$font-size-medium: 11pt !default;
+$font-size-medium-large: 15pt !default;
+$font-size-large: 17pt !default;
+
+@include icon-font('FontAwesome', inline-font-files(
+  'font-awesome/fontawesome-webfont.woff', woff, 
+  'font-awesome/fontawesome-webfont.ttf', truetype,
+  'font-awesome/fontawesome-webfont.svg', svg
+)); 
+
+@include icon("chevron-left" , $chevron-left, "FontAwesome");
+@include icon("chevron-right" , $chevron-right, "FontAwesome");
+@include icon("camera"  , $camera, "FontAwesome");
+@include icon("param"  , $cog, "FontAwesome");
+@include icon("flag"  , $flag, "FontAwesome");
+@include icon("group"  , $group, "FontAwesome");
+@include icon("direction"  , $location-arrow, "FontAwesome");
+@include icon("location"  , $map-marker, "FontAwesome");
+@include icon("user"  , $user, "FontAwesome");
+@include icon("comment"  , $comment, "FontAwesome");
+@include icon("ok"  , $ok, "FontAwesome");
+@include icon("remove"  , $remove, "FontAwesome");
+@include icon("search"  , $search, "FontAwesome");
+@include icon("menu"  , $reorder, "FontAwesome");
+@include icon("error"  , $exclamation, "FontAwesome");
+@include icon("removeAlt"  , $minus-sign-alt, "FontAwesome");
+@include icon("addAlt"  , $plus-sign-alt, "FontAwesome");
+@include icon("modify"  , $pencil, "FontAwesome");
+@include icon("plus"  , $plus-sign, "FontAwesome");

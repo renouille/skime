@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-model-Friendship'>/**
+</span> * Model to manage the Friendship informations
+ * Note: Database associative table
+ * 
+ * Fields:
+ * -- id:          Id of Friendship
+ * -- fromuser_id: Id of the associated User (User who made the friend request)
+ * -- touser_id:   Id of the associated User (User who received the friend request)
+ *
+ * Belongs to: 
+ * -- User (fromUser)
+ * -- User (toUser)
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.model.Friendship', {
+	extend: 'Ext.data.Model',
+	config: {
+<span id='skiMe-model-Friendship-cfg-fields'>		fields: [
+</span>			{ name: 'id', type: 'int' },
+			{ name: 'fromuser_id', type: 'int' }, 
+			{ name: 'touser_id', type: 'int' }, 
+			{ name: 'status', type: 'string' }, 
+		],
+<span id='skiMe-model-Friendship-cfg-idProperty'>		idProperty: 'id',
+</span><span id='skiMe-model-Friendship-cfg-belongsTo'>		belongsTo: [{
+</span>			name:'fromUser',
+			instanceName:'fromUser',
+			model:'skiMe.model.User',
+			getterName:'getFromUser',
+			setterName:'setFromUser',
+			associationKey:'fromUsers',
+			foreignKey:'fromuser_id'
+		}, {
+			name:'toUser',
+			instanceName:'toUser',
+			model:'skiMe.model.User',
+			getterName:'getToUser',
+			setterName:'setToUser',
+			associationKey:'toUsers',
+			foreignKey:'touser_id'
+		}],
+<span id='skiMe-model-Friendship-cfg-proxy'>		proxy: {
+</span>			type:'rest',
+			url: skiMe.config.Config.getWebservices()+'/friendships',
+			reader: {
+				type:'json',
+				rootProperty: 'friendship',
+				successProperty: 'success'
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

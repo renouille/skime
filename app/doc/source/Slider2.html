@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-Slider'>/**
+</span> * Container grouping all 3 containers that composes the slider : FriendsPanel, MapPanel and NotifsPanel
+ */
+
+Ext.define('skiMe.view.Slider', {
+    extend: 'Ext.Container',
+    xtype: 'sliderView',
+    requires:[
+        'Ext.TitleBar'
+    ],
+    config: {
+<span id='skiMe-view-Slider-cfg-fullscreen'>        fullscreen: true,
+</span><span id='skiMe-view-Slider-cfg-cls'>        cls: 'slider',
+</span><span id='skiMe-view-Slider-cfg-layout'>        layout: 'fit',
+</span><span id='skiMe-view-Slider-cfg-showAnimation'>        showAnimation: 'pop',
+</span><span id='skiMe-view-Slider-cfg-items'>        items: [{
+</span>            xtype: 'friendsPanel',
+            width: 250
+        }, {
+            xtype: 'mapPanel',
+            width: '100%'
+        },{
+            xtype: 'notifsPanel',
+            width: 250
+        }]
+    },
+
+<span id='skiMe-view-Slider-method-initialize'>    /**
+</span>     * Fires an event to notify the main view is initializing and the data can be loaded
+     */
+    initialize: function() {
+        this.fireEvent('applicationLaunch');
+    }
+});</pre>
+</body>
+</html>

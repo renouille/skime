@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-GroupForm'>/**
+</span> * Form to create a new Group
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.GroupForm', {
+    extend: 'Ext.form.Panel',
+    xtype: 'groupForm',
+    config: {
+<span id='skiMe-view-GroupForm-cfg-itemId'>        itemId: 'groupForm',
+</span><span id='skiMe-view-GroupForm-cfg-fullscreen'>        fullscreen: 'true',
+</span><span id='skiMe-view-GroupForm-cfg-showAnimation'>        showAnimation: 'fadeIn',
+</span><span id='skiMe-view-GroupForm-cfg-hideAnimation'>        hideAnimation: 'fadeOut',
+</span><span id='skiMe-view-GroupForm-cfg-layout'>        layout: {
+</span>            type: 'vbox',
+            align: 'middle'
+        },
+<span id='skiMe-view-GroupForm-cfg-items'>        items:[{
+</span>            xtype: 'titlebar',
+            title: 'new group',
+            docked: 'top',  
+            items: [{
+                xtype: 'button',
+                align : 'left',
+                itemId: 'grpBackBtn',
+                name : 'backBtn',
+                iconCls : 'chevron-left',
+                cls: 'sm-titlebar-button'
+            }]
+        }, {
+            xtype: 'textfield',
+            itemId: 'groupName',
+            name: 'groupName',
+            width: '80%',
+            label: 'NAME',
+            labelCls: 'sm-formLabel',
+            labelWidth: '80%',
+            clearIcon: false,
+            maxLength: 32
+        }, {
+            xtype: 'label',
+            html: 'MEMBERS',
+            cls: 'sm-formLabel',
+            width: '80%'
+        }, {
+            xtype: 'button',
+            itemId: 'grpAddFiendBtn',
+            text: 'add a group member',
+            cls: 'sm-button addElement',
+            iconCls: 'plus',
+            width: '80%'
+        }, {
+            xtype: 'addedFriendList'
+        }, {
+            xtype: 'button',
+            itemId: 'grpCreateBtn',    
+            text: 'Create group',  
+            cls: 'sm-button default',
+            width: '80%',
+            hidden: true
+        }, {
+            xtype: 'label',
+            itemId: 'grpFailedLabel',
+            hidden: true,
+            hideAnimation: 'fadeOut',
+            showAnimation: 'fadeIn',
+            cls: 'sm-label-error'
+        }],
+<span id='skiMe-view-GroupForm-cfg-listeners'>        listeners: [{
+</span>            delegate: '#grpCreateBtn',
+            event: 'tap',
+            fn: 'onGRPCreateBtnTap'
+        }, {
+            delegate: '#grpBackBtn',
+            event: 'tap',
+            fn: 'onGRPBackBtnTap'
+        }, {
+            delegate: '#grpAddFiendBtn',
+            event: 'tap',
+            fn: 'onGRPAddFriendBtnTap'
+        }]
+    },
+
+<span id='skiMe-view-GroupForm-method-onGRPCreateBtnTap'>    /**
+</span>     * Fire an event to notify the &quot;create&quot; button was tapped
+     * If an error message is displayed, hide it before to let time to the fade animation to finish
+     */
+    onGRPCreateBtnTap: function() {
+
+        var groupForm = this;
+        var errorLabel = this.down('#grpFailedLabel');
+
+        if(errorLabel.isHidden()) {
+            this.fireEvent('grpCreateBtnTap');
+        } else {
+            errorLabel.hide();
+            errorLabel.onAfter('hide', function() {
+                groupForm.fireEvent('grpCreateBtnTap');
+            });
+        }
+    }, 
+
+<span id='skiMe-view-GroupForm-method-onGRPBackBtnTap'>    /**
+</span>     * Fire an event to notify the &quot;back&quot; button was tapped
+     */
+    onGRPBackBtnTap: function() {
+        this.fireEvent('grpBackBtnTap');
+    },
+
+<span id='skiMe-view-GroupForm-method-onGRPAddFriendBtnTap'>    /**
+</span>     * Fire an event to notify the &quot;add Friend&quot; button was tapped
+     */
+    onGRPAddFriendBtnTap: function() {
+        this.fireEvent('grpAddFriendBtnTap');
+    },
+
+<span id='skiMe-view-GroupForm-method-hideCreateBtn'>    /**
+</span>     * Hide or unhide the &quot;create&quot; button
+     * @param {boolean} value New value of the hide property
+     */
+    hideCreateBtn: function(value) {
+        this.down('#grpCreateBtn').setHidden(value);
+    },
+
+<span id='skiMe-view-GroupForm-method-isCreateBtnHidden'>    /**
+</span>     * Returns the value of the hidden property of the &quot;create&quot; button
+     * @return {boolean} True if hidden, false if not
+     */
+    isCreateBtnHidden: function() {
+        return this.down('#grpCreateBtn').isHidden();
+    },
+
+<span id='skiMe-view-GroupForm-method-showGroupFailedLabel'>    /**
+</span>     * Display an error message
+     * @param {string} message Error message to display
+     */
+    showGroupFailedLabel: function (message) {
+        var label = this.down('#grpFailedLabel');
+        label.setHtml(message);
+        label.show();
+    }
+});</pre>
+</body>
+</html>

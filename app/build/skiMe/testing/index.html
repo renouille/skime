@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html manifest="" lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>skiMe</title>
+    <style type="text/css">
+         /**
+         * Example of an initial loading indicator.
+         * It is recommended to keep this as minimal as possible to provide instant feedback
+         * while other resources are still being loaded for the first time
+         */
+        html, body {
+            height: 100%;
+            background-color: #1985D0
+        }
+
+        #appLoadingIndicator {
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            text-align: center;
+            width: 100%;
+            height: 30px;
+            -webkit-animation-name: appLoadingIndicator;
+            -webkit-animation-duration: 0.5s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: linear;
+        }
+
+        #appLoadingIndicator > * {
+            background-color: #FFFFFF;
+            display: inline-block;
+            height: 30px;
+            -webkit-border-radius: 15px;
+            margin: 0 5px;
+            width: 30px;
+            opacity: 0.8;
+        }
+
+        @-webkit-keyframes appLoadingIndicator{
+            0% {
+                opacity: 0.8
+            }
+            50% {
+                opacity: 0
+            }
+            100% {
+                opacity: 0.8
+            }
+        }
+    </style>
+    <!-- The line below must be kept intact for Sencha Command to build your application -->
+    <script type="text/javascript">(function(e){var c=e.document.head;if(typeof b==="undefined"){var b=e.Ext={}}function d(f){document.write(f)}function a(f,g){var h=document.createElement("meta");h.setAttribute("name",f);h.setAttribute("content",g);c.appendChild(h)}b.blink=function(p){var j=p.js||[],n=p.css||[],l,m,o,h,k;if(navigator.userAgent.match(/IEMobile\/10\.0/)){var g=document.createElement("style");g.appendChild(document.createTextNode("@media screen and (orientation: portrait) {@-ms-viewport {width: 320px !important;}}@media screen and (orientation: landscape) {@-ms-viewport {width: 560px !important;}}"));document.getElementsByTagName("head")[0].appendChild(g)}a("viewport","width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no");a("apple-mobile-web-app-capable","yes");a("apple-touch-fullscreen","yes");if(!window.Ext){window.Ext={}}b.microloaded=true;var f=window.Ext.filterPlatform=function(t){var C=false,r=navigator.userAgent,v,z;t=[].concat(t);function y(D){var i=/Mobile(\/|\s)/.test(D);return/(iPhone|iPod)/.test(D)||(!/(Silk)/.test(D)&&(/(Android)/.test(D)&&(/(Android 2)/.test(D)||i)))||(/(BlackBerry|BB)/.test(D)&&i)||/(Windows Phone)/.test(D)}function x(i){return !y(i)&&(/iPad/.test(i)||/Android/.test(i)||/(RIM Tablet OS)/.test(i)||(/MSIE 10/.test(i)&&/; Touch/.test(i)))}var q=window.location.search.substr(1),s=q.split("&"),u={},A,w;for(w=0;w<s.length;w++){var B=s[w].split("=");u[B[0]]=B[1]}A=u.platform;if(A){return t.indexOf(A)!=-1}for(v=0,z=t.length;v<z;v++){switch(t[v]){case"phone":C=y(r);break;case"tablet":C=x(r);break;case"desktop":C=!y(r)&&!x(r);break;case"ios":C=/(iPad|iPhone|iPod)/.test(r);break;case"android":C=/(Android|Silk)/.test(r);break;case"blackberry":C=/(BlackBerry|BB)/.test(r);break;case"safari":C=/Safari/.test(r)&&!(/(BlackBerry|BB)/.test(r));break;case"chrome":C=/Chrome/.test(r);break;case"ie10":C=/MSIE 10/.test(r);break}if(C){return true}}return false};for(l=0,m=n.length;l<m;l++){o=n[l];if(typeof o!="string"){h=o.profile;k=o.theme;o=o.path}if(h){if(!f(h)){continue}b.theme={name:k||"Default"}}d('<link rel="stylesheet" href="'+o+'">')}for(l=0,m=j.length;l<m;l++){o=j[l];if(typeof o!="string"){h=o.profile;o=o.path}if(h){if(!f(h)){continue}}d('<script src="'+o+'"><\/script>')}}})(this);;Ext.blink({"id":"5a024370-2381-471b-8ae7-597e3251ec85","js":[{"path":"app.js","bundle":true,"update":"delta","type":"js"},{"path":"lib/Leaflet-0.6.2/dist/leaflet.js","update":"delta","type":"js"},{"path":"lib/Leaflet-bonus/leaflet.awesome-markers.min.js","update":"delta","type":"js"},{"path":"lib/Leaflet-bonus/leaflet.image-markers.js","update":"delta","type":"js"},{"path":"lib/Leaflet-bonus/leaflet.label.js","update":"delta","type":"js"},{"path":"http://ogo.heig-vd.ch:8000/socket.io/socket.io.js","remote":true,"update":false,"type":"js","bundle":false}],"css":[{"path":"resources/css/app.css","update":"delta","type":"css"},{"path":"lib/Leaflet-0.6.2/dist/leaflet.css","update":"delta","type":"css"},{"path":"lib/Leaflet-bonus/leaflet.awesome-markers.css","update":"delta","type":"css"},{"path":"lib/Leaflet-bonus/leaflet.label.css","update":"delta","type":"css"},{"path":"lib/Leaflet-bonus/leaflet.customPopup.css","update":"delta","type":"css"},{"path":"resources/css/gallery.css","update":"delta","type":"css"}]})</script><script type="text/javascript" src="http://ogo.heig-vd.ch:8000/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="appLoadingIndicator">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>

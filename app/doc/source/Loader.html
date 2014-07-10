@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-controller-Loader'>/**
+</span> * Loader of the skiMe Application
+ * Loads all the base data needed for application launch
+ * Data loaded :
+ * -- Pistes
+ * -- Lifts
+ * -- MeetinPoints
+ * -- Groups
+ * 
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.controller.Loader', {
+    extend: 'Ext.app.Controller',
+    config: {
+<span id='skiMe-controller-Loader-cfg-nbFinishedTasks'>        nbFinishedTasks: 0,
+</span><span id='skiMe-controller-Loader-cfg-nbTotalTasks'>        nbTotalTasks: 6,
+</span><span id='skiMe-controller-Loader-cfg-refs'>        refs: {
+</span>            mainView: 'sliderView',
+            friendsPanel: 'friendsPanel'
+        },
+<span id='skiMe-controller-Loader-cfg-control'>        control: {
+</span>            mainView: {
+                applicationLaunch: 'loadData'
+            }
+        }
+    }, 
+
+<span id='skiMe-controller-Loader-method-loadData'>    /**
+</span>     * Load all the needed data for application launch
+     */
+    loadData: function () {
+
+        var loader = this;
+
+        this.getMainView().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading data...'
+        });
+
+        //Loading of the pistes
+        Ext.getStore('pisteStore').load({
+            callback: function(records, operation, success) {
+
+                if(success) {
+                    console.log(&quot;Pistes loaded&quot;);
+                    loader.dataLoaded();
+                } else {
+                    console.log(&quot;Oops, something went wrong...&quot;);
+                    var auth = Ext.getStore('authStore').getById(1);
+                    auth.erase();
+                    Ext.getStore('authStore').sync();
+                }
+                
+            }  
+        });
+
+        //Loading of the lifts
+        Ext.getStore('liftStore').load({
+            callback: function(records, operation, success) {
+
+                if(success) {
+                    console.log(&quot;Lifts loaded&quot;);
+                    loader.dataLoaded();
+                } else {
+                    console.log(&quot;Oops, something went wrong...&quot;);
+                    var auth = Ext.getStore('authStore').getById(1);
+                    auth.erase();
+                    Ext.getStore('authStore').sync();
+                }
+                
+            }  
+        });
+
+        //Loading of the meeting points
+        ////User can have zero active meeting points, so data must be shown even if an error 404 is received
+        Ext.getStore('meetingPointStore').load({
+            callback: function(records, operation, success) {
+
+                loader.dataLoaded();
+
+                if(success) {
+                    console.log(&quot;MeetingPoints loaded&quot;)
+                } else {
+                    console.log(&quot;No active meeting points found.&quot;);
+                }
+            }
+        });
+
+        //Loading of the friends
+        ////User can have zero friends, so data must be shown even if an error 404 is received
+        Ext.getStore('friendStore').load({
+            callback: function(records, operation, success) {
+
+                loader.dataLoaded();
+
+                if(success) {
+                    console.log(&quot;Friends loaded&quot;)
+                    console.log(Ext.getStore('friendStore'));
+                    loader.getFriendsPanel().setFriendListHeight(Ext.getStore('friendStore').getCount() * 70);
+                    loader.getFriendsPanel().setFriendListStore(Ext.getStore('friendStore')); 
+                } else {
+                    console.log(&quot;No friends found.&quot;);
+                }
+            }
+        });
+
+        //Loading of groups
+        //User can be in zero groups, so data must be shown even if an error 404 is received
+        Ext.getStore('groupStore').load({
+            callback: function(records, operation, success) {
+
+                loader.dataLoaded();
+
+                if(success) {
+                    console.log(&quot;Groups loaded&quot;)
+
+                    loader.getFriendsPanel().setGroupListHeight(Ext.getStore('groupStore').getCount() * 70);
+                    loader.getFriendsPanel().setGroupListStore(Ext.getStore('groupStore')); 
+                } else {
+                    console.log(&quot;No groups found.&quot;);
+                }
+            }
+        });
+
+        //Loading of resorts
+        Ext.getStore('resortStore').load({
+            callback: function(records, operation, success) {
+
+                if(success) {
+                    console.log(&quot;Resorts loaded&quot;);
+                    loader.dataLoaded();
+                } else {
+                    console.log(&quot;Error while loading resorts.&quot;);
+                }
+            }
+        });
+    },
+
+<span id='skiMe-controller-Loader-method-dataLoaded'>    /**
+</span>     * When all the data is loaded, unmask the application and set the websocket connection
+     */
+    dataLoaded: function() {
+
+        this.setNbFinishedTasks(this.getNbFinishedTasks()+1);
+        
+        if( this.getNbFinishedTasks() == this.getNbTotalTasks()) {
+
+            this.getApplication().getController('MapController').showData();
+
+            this.getApplication().getController('SocketController').setConnection();
+
+            this.getMainView().setMasked(false);
+        }
+    }
+});</pre>
+</body>
+</html>

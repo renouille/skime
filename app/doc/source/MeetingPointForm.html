@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-MeetingPointForm'>/**
+</span> * Form to create a new Meeting Point with a meeting time, a small comment of 140 characters and members
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.MeetingPointForm', {
+    extend: 'Ext.form.Panel',
+    xtype: 'meetingPointForm',
+    requires: [
+        'Ext.ux.Time',
+        'Ext.ux.TimePicker'
+    ],
+    config: {
+<span id='skiMe-view-MeetingPointForm-cfg-itemId'>        itemId: 'meetingPointForm',
+</span><span id='skiMe-view-MeetingPointForm-cfg-fullscreen'>        fullscreen: 'true',
+</span><span id='skiMe-view-MeetingPointForm-cfg-showAnimation'>        showAnimation: 'fadeIn',
+</span><span id='skiMe-view-MeetingPointForm-cfg-hideAnimation'>        hideAnimation: 'fadeOut',
+</span><span id='skiMe-view-MeetingPointForm-cfg-layout'>        layout: {
+</span>            type: 'vbox',
+            align: 'middle'
+        },
+<span id='skiMe-view-MeetingPointForm-cfg-items'>        items:[{
+</span>            xtype: 'titlebar',
+            title: 'meeting point',
+            docked: 'top',  
+            items: [{
+                xtype: 'button',
+                align : 'left',
+                itemId: 'mpBackBtn',
+                name : 'backBtn',
+                iconCls : 'chevron-left',
+                cls: 'sm-titlebar-button'
+            }]
+        }, {
+            xtype: 'timepickerfield',
+            itemId: 'meetingPointTimePicker',
+            name: 'meetingTime',
+            label: 'MEETING TIME',
+            labelCls: 'sm-formLabel',
+            labelWidth: '80%',
+            clearIcon: false
+        }, {
+            xtype: 'textareafield',
+            itemId: 'meetingPointComment',
+            name: 'meetingPointComment',
+            required: false,
+            maxRows: 10,
+            maxLength: 140,
+            label: 'COMMENTS',
+            labelCls: 'sm-formLabel',
+            labelWidth: '80%',
+            clearIcon: false
+        }, {
+            xtype: 'button',
+            itemId: 'mpAddFriendBtn',
+            text: 'Add some friends',
+            cls: 'sm-button addElement',
+            iconCls: 'plus',
+            width: '80%'
+        }, {
+            xtype: 'button',
+            itemId: 'mpAddGroupBtn',
+            text: 'Add a group',
+            cls: 'sm-button addElement',
+            iconCls: 'plus',
+            width: '80%'
+        }, {
+            xtype: 'addedFriendList'
+        }, {
+            xtype: 'addedGroupList'
+        }, {
+            xtype: 'button',
+            itemId: 'mpCreateBtn',    
+            text: 'Create meeting point',  
+            cls: 'sm-button default',
+            width: '80%',
+            hidden: true
+        }],
+<span id='skiMe-view-MeetingPointForm-cfg-listeners'>        listeners: [{
+</span>            delegate: '#mpCreateBtn',
+            event: 'tap',
+            fn: 'onMPCreateBtnTap'
+        }, {
+            delegate: '#mpBackBtn',
+            event: 'tap',
+            fn: 'onMPBackBtnTap'
+        }, {
+            delegate: '#mpAddFriendBtn',
+            event: 'tap',
+            fn: 'onMPAddFriendBtnTap',
+        }, {
+            delegate: '#mpAddGroupBtn',
+            event: 'tap',
+            fn: 'onMPAddGroupBtnTap',
+        }]
+    },
+
+<span id='skiMe-view-MeetingPointForm-method-onMPCreateBtnTap'>    /**
+</span>     * Fires an event to notify the &quot;create Meeting Point&quot; button was tapped
+     */
+    onMPCreateBtnTap: function() {
+        this.fireEvent('mpCreateBtnTap');
+    }, 
+
+<span id='skiMe-view-MeetingPointForm-method-onMPBackBtnTap'>    /**
+</span>     * Fires an event to notify the &quot;back&quot; button was tapped
+     */
+    onMPBackBtnTap: function() {
+        this.fireEvent('mpBackBtnTap');
+    },
+
+<span id='skiMe-view-MeetingPointForm-method-onMPAddFriendBtnTap'>    /**
+</span>     * Fires an event to notify the &quot;add Friend&quot; button was tapped
+     */
+    onMPAddFriendBtnTap: function() {
+        this.fireEvent('mpAddFriendBtnTap');
+    },
+
+<span id='skiMe-view-MeetingPointForm-method-onMPAddGroupBtnTap'>    /**
+</span>     * Fires an event to notify the &quot;add Group&quot; button was tapped
+     */
+    onMPAddGroupBtnTap: function() {
+        this.fireEvent('mpAddGroupBtnTap');
+    },
+
+<span id='skiMe-view-MeetingPointForm-method-hideAddFriendBtn'>    /**
+</span>     * Hide or unhide the &quot;add Friend&quot; button
+     * @param {boolean} value New value of the hidden property
+     */
+    hideAddFriendBtn: function(value) {
+        this.down('#mpAddFriendBtn').setHidden(value);
+    },
+
+<span id='skiMe-view-MeetingPointForm-method-hideAddGroupBtn'>    /**
+</span>     * Hide or unhide the &quot;add Group&quot; button
+     * @param {boolean} value New value of the hidden property
+     */
+    hideAddGroupBtn: function(value) {
+        this.down('#mpAddGroupBtn').setHidden(value);
+    },
+
+<span id='skiMe-view-MeetingPointForm-method-hideCreateBtn'>    /**
+</span>     * Hide or unhide the &quot;create&quot; button
+     * @param {boolean} value New value of the hidden property
+     */
+    hideCreateBtn: function(value) {
+        this.down('#mpCreateBtn').setHidden(value);
+    },
+
+<span id='skiMe-view-MeetingPointForm-method-isCreateBtnHidden'>    /**
+</span>     * Returns the value of the hidden property of the &quot;create&quot; button
+     * @return {boolean} True if hidden, false if not
+     */
+    isCreateBtnHidden: function() {
+        return this.down('#mpCreateBtn').isHidden();
+    }
+});</pre>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-store-ResortStore'>/**
+</span> * Store to manage the Resorts
+ * Type: REST
+ *
+ * @autor René Grossmann
+ */
+
+Ext.define('skiMe.store.ResortStore', {
+	extend: 'Ext.data.Store',
+	xtype: 'resortStore',
+	requires: [
+		'Ext.data.proxy.Rest'
+	],
+	config: {
+<span id='skiMe-store-ResortStore-cfg-model'>		model: 'skiMe.model.Resort',
+</span><span id='skiMe-store-ResortStore-cfg-storeId'>		storeId: 'resortStore',
+</span><span id='skiMe-store-ResortStore-cfg-sorters'>		sorters: [{
+</span>            property : &quot;name&quot;,
+            direction: &quot;ASC&quot;
+        }],
+<span id='skiMe-store-ResortStore-cfg-proxy'>        proxy: {
+</span>			type:'rest',
+			reader: {
+				type:'json',
+				rootProperty: 'resorts',
+				successProperty: 'success'
+			}
+		},
+<span id='skiMe-store-ResortStore-cfg-autoload'>		autoload: false,
+</span><span id='skiMe-store-ResortStore-cfg-autoSync'>		autoSync: false,
+</span><span id='skiMe-store-ResortStore-cfg-listeners'>		listeners: {
+</span>		  	beforeload: function() {
+		  		this.getProxy().setHeaders(skiMe.config.Config.getSMHeaders());
+		  		this.getProxy().setUrl(skiMe.config.Config.getWebservices()+'/resorts');
+				return true;
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

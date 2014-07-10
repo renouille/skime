@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <type name="route" id="1">
+    <class name="piste" id="101" />
+  </type>
+  <type name="piste:difficulty" id="2">
+    <class name="easy" id="201" />
+    <class name="intermediate" id="202" />
+    <class name="advanced" id="203" />
+  </type>
+</configuration>

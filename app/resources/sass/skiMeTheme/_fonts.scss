@@ -1,0 +1,65 @@
+/**
+* font sizes
+*/
+$font-size-small: 8pt !default;
+$font-size-normal: 10pt !default;
+$font-size-medium: 11pt !default;
+$font-size-medium-large: 15pt !default;
+$font-size-large: 17pt !default;
+
+/*@include icon-font('skiMeIcons', inline-font-files(
+  'skiMeIcons/skimefont.woff', woff, 
+  'skiMeIcons/skimefont.ttf', truetype,
+  'skiMeIcons/skimefont.svg', svg
+));*/
+
+@include icon-font('FontAwesome', inline-font-files(
+  'font-awesome/fontawesome-webfont.woff', woff, 
+  'font-awesome/fontawesome-webfont.ttf', truetype,
+  'font-awesome/fontawesome-webfont.svg', svg
+)); 
+
+@include icon("chevron-left" , $chevron-left, "FontAwesome");
+@include icon("chevron-right" , $chevron-right, "skiMeIcons");
+@include icon("camera"  , $camera, "FontAwesome");
+@include icon("param"  , $cog, "FontAwesome");
+@include icon("flag"  , $flag, "FontAwesome");
+@include icon("group"  , $group, "FontAwesome");
+@include icon("direction"  , $location-arrow, "FontAwesome");
+@include icon("location"  , $map-marker, "FontAwesome");
+@include icon("ok"  , $ok, "FontAwesome");
+@include icon("cancel"  , $remove, "FontAwesome");
+@include icon("search"  , $search, "FontAwesome");
+@include icon("menu"  , $reorder, "FontAwesome");
+
+
+/*@include icon("left" , "\e836", "skiMeIcons");
+@include icon("right" , "\e838", "skiMeIcons");
+@include icon("left_outline"  , "\e835", "skiMeIcons");
+@include icon("right_outline"  , "\e837", "skiMeIcons");
+@include icon("camera"  , "\e812", "skiMeIcons");
+@include icon("camera_outline"  , "\e811", "skiMeIcons");
+@include icon("param"  , "\e834", "skiMeIcons");
+@include icon("param_outline"  , "\e833", "skiMeIcons");
+@include icon("cw"  , "\e839", "skiMeIcons");
+@include icon("compass"  , "\e830", "skiMeIcons");
+@include icon("flag"  , "\e823", "skiMeIcons");
+@include icon("groupe_outline"  , "\e809", "skiMeIcons");
+@include icon("group"  , "\e80a", "skiMeIcons");
+@include icon("direction_outline"  , "\e82f", "skiMeIcons");
+@include icon("direction"  , "\e82e", "skiMeIcons");
+@include icon("location_outline"  , "\e82b", "skiMeIcons");
+@include icon("location"  , "\e82c", "skiMeIcons");
+@include icon("plus"  , "\e81b", "skiMeIcons");
+@include icon("target"  , "\e83b", "skiMeIcons");
+@include icon("fb_circle"  , "\e83d", "skiMeIcons");
+@include icon("fb"  , "\e83c", "skiMeIcons");
+@include icon("menu_outline"  , "\e832", "skiMeIcons");
+@include icon("ok_outline"  , "\e813", "skiMeIcons");
+@include icon("ok"  , "\e814", "skiMeIcons");
+@include icon("cancel_outline"  , "\e815", "skiMeIcons");
+@include icon("cancel"  , "\e816", "skiMeIcons");
+@include icon("search_outline"  , "\e801", "skiMeIcons");
+@include icon("search"  , "\e802", "skiMeIcons");
+@include icon("menu"  , "\e831", "skiMeIcons");
+@include icon("menu"  , "\e831", "skiMeIcons");*/

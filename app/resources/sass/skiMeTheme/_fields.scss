@@ -1,0 +1,51 @@
+.x-field input{
+    border: 2px solid $lightgray;
+    height: 40px;
+    width: 100%;
+    padding: 5px 0px 5px 5px;
+    color: $base;
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    text-indent: 6px;
+    padding-top: 5px;
+    -webkit-appearance: none;
+
+    @include border-radius(6px);
+    @include box-shadow(none);
+    @include transition(all 0.30s ease);
+
+    &:focus {
+        border-color: $base-color;
+        @include transition(all 0.30s ease);
+    }
+}
+
+.x-field {
+    border-style: none;
+    width: 80%;
+    margin: 10px auto 10px auto;
+}
+
+.x-field-textarea textarea {
+    min-height: 0.8em;
+    padding-top: .5em;
+    border: 2px solid $lightgray;
+    resize: none;
+    height: 120px;
+    padding: 5px 0px 5px 5px;
+    @include border-radius(6px);
+    @include box-shadow(none);
+    @include transition(all 0.30s ease);
+
+    &:focus {
+        border-color: $base-color;
+        @include transition(all 0.30s ease);
+    }
+}
+
+.x-field-textarea {
+    resize: none;
+    border-style: none;
+    width: 80%;
+    margin: 10px auto 10px auto;
+}

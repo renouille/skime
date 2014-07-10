@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-store-GroupStore'>/**
+</span> * Store to manage the Groups of a User
+ * Type: REST
+ *
+ * @autor René Grossmann
+ */
+
+Ext.define('skiMe.store.GroupStore', {
+	extend: 'Ext.data.Store',
+	xtype: 'groupStore',
+	requires: [
+		'Ext.data.proxy.Rest'
+	],
+	config: {
+<span id='skiMe-store-GroupStore-cfg-model'>		model: 'skiMe.model.Group',
+</span><span id='skiMe-store-GroupStore-cfg-storeId'>		storeId: 'groupStore',
+</span><span id='skiMe-store-GroupStore-cfg-autoload'>		autoload: false,
+</span><span id='skiMe-store-GroupStore-cfg-autoSync'>		autoSync: false,
+</span><span id='skiMe-store-GroupStore-cfg-sorters'>		sorters: [{
+</span>            property : &quot;name&quot;,
+            direction: &quot;ASC&quot;
+        }],
+<span id='skiMe-store-GroupStore-cfg-proxy'>        proxy: {
+</span>			type:'rest',
+			reader: {
+				type:'json',
+				rootProperty: 'groups',
+				successProperty: 'success'
+			}
+		},
+<span id='skiMe-store-GroupStore-cfg-listeners'>		listeners: {
+</span>		  	beforeload: function() {
+		  		this.getProxy().setHeaders(skiMe.config.Config.getSMHeaders());
+		  		this.getProxy().setUrl(skiMe.config.Config.getWebservices()+'/users/'+skiMe.app.user.getId()+'/groups');
+		  		return true;
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

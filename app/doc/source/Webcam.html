@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-model-Webcam'>/**
+</span> * Model to manage the Webcam informations
+ * 
+ * Fields:
+ * -- title:         Title of the Webcam
+ * -- position:      Position of the Webcam
+ * -- resort_id:     Id of the associated Resort
+ *
+ * Belongs to: 
+ * -- Resort
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.model.Webcam', {
+	extend: 'skiMe.model.Image',
+	config: {
+<span id='skiMe-model-Webcam-cfg-fields'>		fields: [
+</span>			{ name: 'title', type: 'string' }, 
+			{ name: 'position', type: 'string' },
+			{ name: 'resort_id', type: 'int' }
+		],
+<span id='skiMe-model-Webcam-cfg-belongsTo'>		belongsTo: [{
+</span>			name:'resort',
+			instanceName:'resort',
+			model:'skiMe.model.Resort',
+			associationKey:'resort'
+		}],
+<span id='skiMe-model-Webcam-cfg-proxy'>		proxy: {
+</span>			type:'rest',
+			url: skiMe.config.Config.getWebservices()+'/webcams',
+			reader: {
+				type:'json',
+				rootProperty: 'webcam',
+				successProperty: 'success'
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

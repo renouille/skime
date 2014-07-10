@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-model-MeetingPoint'>/**
+</span> * Model to manage the Meeting Point informations
+ * 
+ * Fields:
+ * -- id:        Id of the Meeting Point
+ * -- position:  Position of the Meeting Point
+ * -- isactive:  State of the Meeting Point
+ * -- comments:  Comments of the Meeting Point
+ * -- timestamp: Meeting time of the Meeting Point
+ * -- event_id:  Id of the associated Event
+ *
+ * Has one: 
+ * -- Event
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.model.MeetingPoint', {
+	extend: 'Ext.data.Model',
+	config: {
+<span id='skiMe-model-MeetingPoint-cfg-fields'>		fields: [
+</span>			{ name: 'id', type: 'int' }, 
+			{ name: 'position', type: 'string'},
+			{ name: 'isactive', type: 'string'},
+			{ name: 'comments', type: 'string'},
+			{ name: 'timestamp', type: 'string'},
+			{ name: 'event_id', type: 'int'}
+		],
+<span id='skiMe-model-MeetingPoint-cfg-validations'>		validations : [{
+</span>            type : 'presence',
+            name : 'position',
+            message : &quot;A valid position is required.&quot;
+        }, {
+            type : 'presence',
+            name : 'timestamp',
+            message : &quot;A valid meeting point time is required&quot;
+        }],
+<span id='skiMe-model-MeetingPoint-cfg-idProperty'>		idProperty: 'id',
+</span><span id='skiMe-model-MeetingPoint-cfg-hasOne'>		hasOne: [{
+</span>			name:'event',
+			instanceName:'event',
+			model:'skiMe.model.Event',
+			associationKey:'event',
+			foreignKey: 'event_id',
+			getterName: 'getEvent',
+			setterName: 'setEvent'
+		}],
+<span id='skiMe-model-MeetingPoint-cfg-proxy'>		proxy: {
+</span>			type:'rest',
+			url: skiMe.config.Config.getWebservices()+'/meetingpoints',
+			reader: {
+				type:'json',
+				rootProperty: 'meetingPoint',
+				successProperty: 'success'
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

@@ -1,0 +1,9 @@
+#original-source: http://planet.openstreetmap.org/replication/minute/000/348/491.state.txt
+#generated-by: http://toolserver.org/~mazder/replicate-sequences/
+#Tue May 14 22:27:03 UTC 2013
+sequenceNumber=348491
+txnMaxQueried=372841395
+txnReadyList=
+timestamp=2013-05-14T22\:27\:04Z
+txnMax=372841395
+txnActiveList=372802567,372841393

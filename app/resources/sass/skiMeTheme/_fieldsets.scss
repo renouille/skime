@@ -1,0 +1,30 @@
+.x-form-fieldset {
+    .x-form-fieldset-inner {
+        border: none;
+        overflow: hidden;
+    }
+
+    .x-dock {
+        .x-dock-body {
+            @include st-box-flex(1);
+        }
+    }
+}
+
+.x-form-fieldset-title {
+    font-weight: bold;
+
+    .x-innerhtml {
+        @include ellipsis();
+    }
+}
+
+.x-form-fieldset-instructions {
+    text-align: center;
+}
+
+.x-ie {
+  .x-field-select .x-field-mask {
+    z-index: 3;
+  }
+}

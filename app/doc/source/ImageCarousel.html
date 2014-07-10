@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-ImageCarousel'>/**
+</span> * Carousel of images to display webcams
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.ImageCarousel', {
+	extend : 'Ext.carousel.Carousel',
+	xtype : 'imageCarousel',
+	requires : ['Ext.TitleBar'],
+	config : {
+<span id='skiMe-view-ImageCarousel-cfg-itemId'>        itemId: 'imageCarousel',
+</span><span id='skiMe-view-ImageCarousel-cfg-fullscreen'>    		fullscreen : true,
+</span><span id='skiMe-view-ImageCarousel-cfg-modal'>    		modal : true,
+</span><span id='skiMe-view-ImageCarousel-cfg-cls'>    		cls : 'carousel',
+</span><span id='skiMe-view-ImageCarousel-cfg-showAnimation'>    		showAnimation : 'popIn',
+</span><span id='skiMe-view-ImageCarousel-cfg-hideAnimation'>    		hideAnimation : 'popOut',
+</span><span id='skiMe-view-ImageCarousel-cfg-indicator'>    		indicator : false,
+</span><span id='skiMe-view-ImageCarousel-cfg-images'>        images: [],
+</span><span id='skiMe-view-ImageCarousel-cfg-items'>        items: [{
+</span>            xtype: 'button',
+            itemId: 'carouselCloseBtn',
+            iconCls: 'remove',
+            top: 10,
+            right: 0,
+            ui: 'plain',
+            cls: 'sm-titlebar-button',
+            hideOnMaskTap: false
+        }, {
+            xtype: 'label',
+            itemId: 'carouselTitleLabel',
+            top: 15,
+            left: 10,
+            cls: 'sm-carousel-label',
+            html: ''
+        }, {
+            xtype : 'titlebar',
+            itemId: 'carouselTitlebar',
+            title : '',
+            docked : 'bottom',
+            cls : 'carousel-bottombar',
+            items : [{
+                xtype : 'button',
+                itemId: 'carouselLeftBtn',
+                align : 'left',
+                iconCls : 'chevron-left',
+                ui : 'plain',
+                cls: 'sm-titlebar-button'
+            }, {
+                xtype : 'button',
+                itemId: 'carouselRightBtn',
+                align : 'right',
+                iconCls : 'chevron-right',
+                ui : 'plain',
+                cls: 'sm-titlebar-button'
+            }]
+        }],
+<span id='skiMe-view-ImageCarousel-cfg-listeners'>        listeners: [{
+</span>            delegate: '#carouselLeftBtn',
+            event: 'tap',
+            fn: 'onCarouselLeftBtnTap'
+        }, {
+            delegate: '#carouselRightBtn',
+            event: 'tap',
+            fn: 'onCarouselRightBtnTap'
+        }, {
+            delegate: '#carouselCloseBtn',
+            event: 'tap',
+            fn: 'onCarouselCloseBtnTap'
+        }, {
+            event: 'activeitemchange',
+            fn: 'onActiveItemChange'
+        }]
+	},
+	
+<span id='skiMe-view-ImageCarousel-method-initialize'>    /**
+</span>     * Initialize the component and add all images to the carousel
+     * @return {[type]} [description]
+     */
+	initialize : function(){
+
+        var imageCarousel = this;
+        var imageStore = this.getImages();
+
+        imageStore.each(function(image) {
+            imageCarousel.add({
+                xtype: 'image',
+                baseCls: 'carousel-item',
+                src: image.get('url'),
+                title: image.get('title'),
+                index: imageStore.indexOf(image)
+            });
+        });
+							
+		this.callParent(arguments);
+	},
+	
+<span id='skiMe-view-ImageCarousel-method-onActiveItemChange'>    /**
+</span>    * Update the title of the image and the image counter
+    * @param {Ext.carousel.Carousel} Carousel which item changed
+    * @param {Ext.Img} panel Active panel containing the image
+    */
+    onActiveItemChange: function(carousel, image){
+
+        this.down('#carouselTitlebar').setTitle(image.config.index+1 + ' of ' + this.getImages().getAllCount());
+
+        this.down('#carouselTitleLabel').setHtml(image.config.title);
+    },
+
+<span id='skiMe-view-ImageCarousel-method-onCarouselCloseBtnTap'>    /**
+</span>     * Hide the carousel and destroy it when the &quot;close&quot; button is tapped
+     */
+    onCarouselCloseBtnTap: function() {
+        this.hide();
+        this.onAfter('hide', function() {
+            this.destroy();
+        });
+    }, 
+
+<span id='skiMe-view-ImageCarousel-method-onCarouselRightBtnTap'>    /**
+</span>     * Active the next item of the carousel when the &quot;right&quot; button is tapped
+     */
+    onCarouselRightBtnTap: function() {
+        this.next();
+    },
+
+<span id='skiMe-view-ImageCarousel-method-onCarouselLeftBtnTap'>    /**
+</span>     * Active the previous item of the carousel when the &quot;left&quot; button is tapped
+     */
+    onCarouselLeftBtnTap: function() {
+        this.previous();
+    }
+});
+</pre>
+</body>
+</html>

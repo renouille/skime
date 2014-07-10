@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-config-Config'>/**
+</span> * Configuration file of the skiMe application
+ * Defines connection constants and valid HTTP headers
+ * 
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.config.Config', {
+    singleton: true,
+
+    config: {
+<span id='skiMe-config-Config-cfg-webservices'>        //Webservices URL
+</span>        //OGO : ogo.heig-vd.ch/tb_projects/skime/server
+        //wamp: 192.168.0.17/skime/server
+        webservices: 'http://192.168.0.17/skime/server',
+
+<span id='skiMe-config-Config-cfg-websockets'>        //Websockets URL
+</span>        websockets: 'http://192.168.0.17/skime/server/websockets',
+
+<span id='skiMe-config-Config-cfg-skimeUrl'>        //skiMe URL
+</span>        skimeUrl: 'http://192.168.0.17/skime'
+    },
+
+<span id='skiMe-config-Config-method-constructor'>    constructor: function(config) {
+</span>        this.initConfig(config);
+
+        Number.prototype.pad = function (len) {
+            return (new Array(len+1).join(&quot;0&quot;) + this).slice(-len);
+        }
+        
+        return this;
+    },
+
+<span id='skiMe-config-Config-method-isWebApp'>    isWebApp: function() {
+</span>        if(document.URL.indexOf('http') != -1) {
+            return true;
+        }
+        return false;
+    },
+
+<span id='skiMe-config-Config-method-getSMHeaders'>    /**
+</span>     * Build a valid HTTP Header for the communication with the REST webservices
+     * Header parameters :
+     * -- SM-userId: Id of the connected user
+     * -- SM-timestamp: Timestamp of the request
+     * -- SM-authToken: Authentication token of the connected user
+     * @return Array Valid HTTP header
+     */
+    getSMHeaders: function() {
+
+        var authStore = Ext.getStore('authStore');
+
+        var headers = {
+            'SM-userId': authStore.getById(1).get('user_id'),
+            'SM-timestamp': Math.round(Date.now() / 1000),
+            'SM-authToken': authStore.getById(1).get('authToken'),     
+            'Accept' : 'application/json'                 
+        }
+
+        return headers;
+    }
+});</pre>
+</body>
+</html>

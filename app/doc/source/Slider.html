@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-controller-Slider'>/**
+</span> * Slider Controlller
+ * Manage the right and left slide effect
+ *
+ * @author Swarnendu De &amp; René Grossmann
+ * @source http://innofied.com/simplest-slide-navigation-with-sencha-touch-2-2/
+ */
+
+Ext.define('skiMe.controller.Slider', {
+    extend: 'Ext.app.Controller',
+    config: {
+<span id='skiMe-controller-Slider-cfg-isLeft'>        isLeft: null,
+</span><span id='skiMe-controller-Slider-cfg-isRight'>        isRight: null,
+</span><span id='skiMe-controller-Slider-cfg-refs'>        refs: {
+</span>            slider: 'sliderView',
+            mapPanel: 'mapPanel',
+            friendsPanel: 'friendsPanel',
+            notifsPanel: 'notifsPanel',
+
+            friendsBtn: 'button[name=&quot;friendsPanelBtn&quot;]',
+            notifsBtn: 'button[name=&quot;notifsPanelBtn&quot;]',
+
+            pathMenuItem: 'button[pathButtonType=menuitem]'
+        },
+
+<span id='skiMe-controller-Slider-cfg-control'>        control: {
+</span>             friendsBtn: {
+                tap: 'slideRight'
+            },
+
+            notifsBtn: {
+                tap: 'slideLeft'
+            },
+
+            friendsPanel: {
+                itemtap: function (list, index, target, record) {
+                    this.slideRight();
+                }
+            },
+
+            notifsPanel: {
+                itemtap: function (list, index, target, record) {
+                    this.slideLeft();
+                }
+            }
+        }
+    },
+
+<span id='skiMe-controller-Slider-method-slideRight'>    /**
+</span>    * On click on the 'friendslist' button, slide the map on the right, if it is already slided, slide it back
+    */
+    slideRight: function () {
+
+        var mapElement = this.getMapPanel().element;
+
+        this.getFriendsPanel().show();
+        this.getNotifsPanel().hide();
+
+        if (mapElement.hasCls('outRight')){
+            mapElement.removeCls('outRight').addCls('inRight');
+        } else if(mapElement.hasCls('inLeft')){
+            mapElement.removeCls('inLeft').addCls('outRight');
+        } else {
+            mapElement.removeCls('inRight').addCls('outRight');
+        }
+    },
+
+<span id='skiMe-controller-Slider-method-slideLeft'>    /**
+</span>     * On click on the 'notifsList' button, slide the map on the left, if it is already slided, slide it back
+     */
+    slideLeft: function () {
+
+        var mapElement = this.getMapPanel().element;
+
+        this.getNotifsPanel().show();
+        this.getFriendsPanel().hide();
+
+        if (mapElement.hasCls('outLeft')){
+            mapElement.removeCls('outLeft').addCls('inLeft');
+        } else if(mapElement.hasCls('inRight')){
+            mapElement.removeCls('inRight').addCls('outLeft');
+        } else {
+            mapElement.removeCls('inLeft').addCls('outLeft');
+        }
+    },
+});</pre>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-SearchPanel'>/**
+</span> * Panel to display the search formular - Actually only a list of all users (work in progress)
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.SearchPanel', {
+    extend: 'Ext.Panel',
+    xtype: 'searchPanel',
+    requires: [
+        'Ext.Img'
+    ],
+    config: {
+<span id='skiMe-view-SearchPanel-cfg-itemId'>        itemId: 'searchPanel',
+</span><span id='skiMe-view-SearchPanel-cfg-fullscreen'>        fullscreen: 'true',
+</span><span id='skiMe-view-SearchPanel-cfg-showAnimation'>        showAnimation: 'fadeIn',
+</span><span id='skiMe-view-SearchPanel-cfg-hideAnimation'>        hideAnimation: 'fadeOut',
+</span><span id='skiMe-view-SearchPanel-cfg-items'>        items:[{
+</span>            xtype: 'titlebar',
+            title: 'search',
+            itemId: 'upTitlebar',
+            docked: 'top',  
+            items: [{
+                xtype: 'button',
+                align : 'left',
+                itemId: 'searchBackBtn',
+                name : 'backBtn',
+                iconCls : 'chevron-left',
+                cls: 'sm-titlebar-button'
+            }]
+        }, {
+            xtype: 'list',
+            itemId: 'searchUserList',
+            itemHeight: 60,
+            title: 'users',
+            height: '100%',
+            width: '100%',
+            store: 'userStore',
+            disableSelection: true,
+            itemTpl: [
+                '&lt;div class=&quot;sm-listItem&quot;&gt;',
+                    '&lt;tpl if=&quot;profilePicture !== null&quot;&gt;',
+                        '&lt;img class=&quot;list-profilePic&quot; src=&quot;'+skiMe.config.Config.getSkimeUrl()+'{profilePicture.url_thumbnail}&quot; /&gt;',
+                    '&lt;tpl else&gt;',
+                        '&lt;img class=&quot;list-profilePic&quot; src=&quot;'+skiMe.config.Config.getSkimeUrl()+'/files/img/default/dflt_thumb.jpg&quot; /&gt;',
+                    '&lt;/tpl&gt;',
+                    '&lt;span class=&quot;list-name&quot;&gt;{name}&lt;/span&gt;',
+                    '&lt;span class=&quot;list-status&quot;&gt;{status}&lt;/span&gt;',
+                '&lt;/div&gt;'
+            ]
+        }]
+    },
+<span id='skiMe-view-SearchPanel-method-onSearchBackBtnTap'>    /**
+</span>     * Fires an event to notify the &quot;back&quot; button was tapped
+     */
+    onSearchBackBtnTap: function() {
+        this.fireEvent('searchBackBtnTap');
+    }
+});</pre>
+</body>
+</html>

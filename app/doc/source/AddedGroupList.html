@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-AddedGroupList'>/**
+</span> * List displaying the selected Groups
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.AddedGroupList', {
+    extend: 'Ext.dataview.List',
+    xtype: 'addedGroupList',
+    config: {
+<span id='skiMe-view-AddedGroupList-cfg-width'>        width: '80%',
+</span><span id='skiMe-view-AddedGroupList-cfg-itemId'>        itemId: 'addedGroupList',
+</span><span id='skiMe-view-AddedGroupList-cfg-store'>        store: 'addedGroupStore',
+</span><span id='skiMe-view-AddedGroupList-cfg-disableSelection'>        disableSelection: true,
+</span><span id='skiMe-view-AddedGroupList-cfg-itemHeight'>        itemHeight: 60,
+</span><span id='skiMe-view-AddedGroupList-cfg-scrollable'>        scrollable: false,
+</span><span id='skiMe-view-AddedGroupList-cfg-height'>        height: 0,
+</span><span id='skiMe-view-AddedGroupList-cfg-itemTpl'>        itemTpl: [
+</span>            '&lt;div class=&quot;sm-listItem&quot;&gt;',
+                '&lt;img class=&quot;list-profilePic&quot; src=&quot;'+skiMe.config.Config.getSkimeUrl()+'/files/img/default/group.jpg&quot; /&gt;',
+                '&lt;span class=&quot;list-name&quot;&gt;{name}&lt;/span&gt;',
+            '&lt;/div&gt;'
+        ]
+    },
+
+<span id='skiMe-view-AddedGroupList-method-setAddedGroupListHeight'>    /**
+</span>     * Increase the height of the list by 70px to display a new item
+     */
+    setAddedGroupListHeight: function() {
+        var newHeight = this.getHeight()+70;
+        console.log(newHeight);
+        this.setHeight(newHeight);
+    }
+});
+</pre>
+</body>
+</html>

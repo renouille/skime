@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-StatusForm'>/**
+</span> * Form to update or delete the status of the User
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.StatusForm', {
+    extend: 'Ext.form.Panel',
+    xtype: 'statusForm',
+    config: {
+<span id='skiMe-view-StatusForm-cfg-itemId'>        itemId: 'statusForm',
+</span><span id='skiMe-view-StatusForm-cfg-fullscreen'>        fullscreen: 'true',
+</span><span id='skiMe-view-StatusForm-cfg-showAnimation'>        showAnimation: 'fadeIn',
+</span><span id='skiMe-view-StatusForm-cfg-hideAnimation'>        hideAnimation: 'fadeOut',
+</span><span id='skiMe-view-StatusForm-cfg-layout'>        layout: {
+</span>            type: 'vbox',
+            align: 'middle'
+        },
+<span id='skiMe-view-StatusForm-cfg-items'>        items:[{
+</span>            xtype: 'titlebar',
+            title: 'my status',
+            docked: 'top',  
+            items: [{
+                xtype: 'button',
+                align : 'left',
+                itemId: 'statusBackBtn',
+                name : 'backBtn',
+                iconCls : 'chevron-left',
+                cls: 'sm-titlebar-button'
+            }]
+        }, {
+            xtype: 'textfield',
+            itemId: 'statusField',
+            name: 'status',
+            width: '80%',
+            label: 'STATUS',
+            placeHolder: 'What\'s on your mind?',
+            labelCls: 'sm-formLabel',
+            labelWidth: '80%',
+            clearIcon: false,
+            maxLength: 32
+        }, {
+            xtype: 'button',
+            itemId: 'statusUpdateBtn',    
+            text: 'Update status',  
+            cls: 'sm-button default',
+            width: '80%',
+        }, {
+            xtype: 'label',
+            itemId: 'statusFailedLabel',
+            hideAnimation: 'fadeOut',
+            showAnimation: 'fadeIn',
+            cls: 'sm-label-error',
+            hidden: true,
+        }],
+<span id='skiMe-view-StatusForm-cfg-listeners'>        listeners: [{
+</span>            delegate: '#statusUpdateBtn',
+            event: 'tap',
+            fn: 'onStatusUpdateBtnTap'
+        }, {
+            delegate: '#statusBackBtn',
+            event: 'tap',
+            fn: 'onStatusBackBtnTap'
+        }]
+    },
+
+
+<span id='skiMe-view-StatusForm-method-onStatusUpdateBtnTap'>    /**
+</span>     * Fires an event to notify the &quot;update status&quot; button was tapped.
+     * If an error message was previously displayed, hide it
+     */
+    onStatusUpdateBtnTap: function() {
+
+        var statusForm = this;
+        var errorLabel = this.down('#statusFailedLabel');
+
+        if(errorLabel.isHidden()) {
+            this.fireEvent('statusUpdateBtnTap');
+        } else {
+            errorLabel.hide();
+            errorLabel.onAfter('hide', function() {
+                statusForm.fireEvent('statusUpdateBtnTap');
+            });
+        }
+    }, 
+
+<span id='skiMe-view-StatusForm-method-onStatusBackBtnTap'>    /**
+</span>     * Fires an event to notify the &quot;back&quot; button was tapped
+     */
+    onStatusBackBtnTap: function() {
+        this.fireEvent('statusBackBtnTap');
+    },
+
+<span id='skiMe-view-StatusForm-method-showStatusFailedLabel'>    /**
+</span>     * Displays an error message
+     * @param  {string} message Error message to display
+     */
+    showStatusFailedLabel: function (message) {
+        var label = this.down('#statusFailedLabel');
+        label.setHtml(message);
+        label.show();
+    }
+});</pre>
+</body>
+</html>

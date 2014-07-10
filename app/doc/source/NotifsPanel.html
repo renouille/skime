@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-NotifsPanel'>/**
+</span> * Right container of the Slider. Contains the Notification list
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.NotifsPanel', {
+    extend: 'Ext.Container',
+    xtype: 'notifsPanel',
+    config: {
+<span id='skiMe-view-NotifsPanel-cfg-itemId'>        itemId: 'notifsPanel',
+</span><span id='skiMe-view-NotifsPanel-cfg-docked'>        docked: 'top',
+</span><span id='skiMe-view-NotifsPanel-cfg-right'>        right: 0,
+</span><span id='skiMe-view-NotifsPanel-cfg-height'>        height: '100%',
+</span><span id='skiMe-view-NotifsPanel-cfg-layout'>        layout: 'card',
+</span><span id='skiMe-view-NotifsPanel-cfg-cls'>        cls: 'nav-list shadowRight',
+</span><span id='skiMe-view-NotifsPanel-cfg-zIndex'>        zIndex: 2,
+</span><span id='skiMe-view-NotifsPanel-cfg-items'>        items:[{
+</span>            xtype: 'titlebar',
+            docked: 'top',
+            title: 'Notifications'
+        }]
+    }
+});</pre>
+</body>
+</html>

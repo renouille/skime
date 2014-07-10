@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-model-Group'>/**
+</span> * Model to manage the Group informations
+ * 
+ * Fields:
+ * -- id:   Id of the Group
+ * -- name: Name of the Group
+ *
+ * Has many: 
+ * -- Events
+ * -- Members
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.model.Group', {
+	extend: 'Ext.data.Model',
+	config: {
+<span id='skiMe-model-Group-cfg-fields'>		fields: [
+</span>			{ name: 'id', type: 'int' }, 
+			{ name: 'name', type: 'string' }
+		],
+<span id='skiMe-model-Group-cfg-validations'>		validations : [{
+</span>            type : 'presence',
+            name : 'name',
+            message : &quot;A valid name is required.&quot;
+        }],
+<span id='skiMe-model-Group-cfg-idProperty'>		idProperty: 'id',
+</span><span id='skiMe-model-Group-cfg-hasMany'>		hasMany: [{ 
+</span>			name:'events',
+			instanceName:'events',
+			model:'skiMe.model.Event',
+			associationKey:'events'
+		},{
+			name: 'members',
+			instanceName: 'members',
+			model: 'skiMe.model.User',
+			associationKey: 'members'
+		}],
+<span id='skiMe-model-Group-cfg-proxy'>		proxy: {
+</span>			type:'rest',
+			url: skiMe.config.Config.getWebservices()+'/groups',
+			reader: {
+				type:'json',
+				rootProperty: 'groups',
+				successProperty: 'success'
+			}
+		}
+	}
+});</pre>
+</body>
+</html>

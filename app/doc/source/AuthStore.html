@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-store-AuthStore'>/**
+</span> * Store to manage the sessions of a User
+ * Type: LocalStorage
+ *
+ * @autor René Grossmann
+ */
+
+Ext.define('skiMe.store.AuthStore', {
+	extend: 'Ext.data.Store',
+	xtype: 'authStore',
+	requires: [
+		'Ext.data.proxy.LocalStorage'
+	],
+	config: {
+<span id='skiMe-store-AuthStore-cfg-autoload'>		autoload: true,
+</span><span id='skiMe-store-AuthStore-cfg-autoSync'>		autoSync: true,
+</span><span id='skiMe-store-AuthStore-cfg-model'>		model: 'skiMe.model.Auth',
+</span><span id='skiMe-store-AuthStore-cfg-storeId'>		storeId: 'authStore'
+</span>	}
+});</pre>
+</body>
+</html>

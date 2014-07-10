@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='skiMe-view-GroupProfile'>/**
+</span> * Profile panel of a Group. Displays a list of all members of the Group
+ *
+ * @author René Grossmann
+ */
+
+Ext.define('skiMe.view.GroupProfile', {
+    extend: 'Ext.Panel',
+    xtype: 'groupProfile',
+    config: {
+<span id='skiMe-view-GroupProfile-cfg-itemId'>        itemId: 'groupProfile',
+</span><span id='skiMe-view-GroupProfile-cfg-fullscreen'>        fullscreen: true,
+</span><span id='skiMe-view-GroupProfile-cfg-layout'>        layout: 'fit',
+</span><span id='skiMe-view-GroupProfile-cfg-showAnimation'>        showAnimation: 'fadeIn',
+</span><span id='skiMe-view-GroupProfile-cfg-hideAnimation'>        hideAnimation: 'fadeOut',
+</span><span id='skiMe-view-GroupProfile-cfg-items'>        items:[{
+</span>            xtype: 'titlebar',
+            docked: 'top', 
+            itemId: 'groupTitle',
+            items: [{
+                xtype: 'button',
+                align : 'left',
+                itemId: 'groupProfileCloseBtn',
+                name : 'closeBtn',
+                iconCls : 'chevron-left',
+                cls: 'sm-titlebar-button'
+            }, {
+                xtype: 'button',
+                align : 'right',
+                itemId: 'upUserActionBtn',
+                name : 'userActionBtn',
+                iconCls: 'removeAlt',
+                cls: 'sm-titlebar-button'
+            }]
+        }, {
+            xtype: 'list',
+            itemId: 'groupMembers',
+            disableSelection: true,
+            itemTpl: [
+                '&lt;div class=&quot;sm-listItem&quot;&gt;',
+                    '&lt;tpl if=&quot;profilePicture !== null&quot;&gt;',
+                        '&lt;img class=&quot;list-profilePic&quot; src=&quot;'+skiMe.config.Config.getSkimeUrl()+'{profilePicture.url_thumbnail}&quot; /&gt;',
+                    '&lt;tpl else&gt;',
+                        '&lt;img class=&quot;list-profilePic&quot; src=&quot;'+skiMe.config.Config.getSkimeUrl()+'/files/img/default/dflt_thumb.jpg&quot; /&gt;',
+                    '&lt;/tpl&gt;',
+                    '&lt;span class=&quot;list-name&quot;&gt;{name}&lt;/span&gt;',
+                    '&lt;span class=&quot;list-status&quot;&gt;{status}&lt;/span&gt;',
+                '&lt;/div&gt;'
+            ]
+        }],
+<span id='skiMe-view-GroupProfile-cfg-listeners'>        listeners: [{
+</span>            delegate: '#groupProfileCloseBtn',
+            event: 'tap',
+            fn: 'onGroupProfileCloseBtnTap'
+        }]
+    },
+
+<span id='skiMe-view-GroupProfile-method-setGroupMembers'>    /**
+</span>     * Set the Users member of the Group
+     * @param {Ext.data.Store} members Users member of the group
+     */
+    setGroupMembers: function(members) {
+        this.down('#groupMembers').setStore(members);
+    },
+
+<span id='skiMe-view-GroupProfile-method-setTitle'>    /**
+</span>     * Set the name of the group as title of the titlebar
+     * @param {string} name Name of the group
+     */
+    setTitle: function(name) {
+        this.down('#groupTitle').setTitle(name);
+    },
+
+<span id='skiMe-view-GroupProfile-method-onGroupProfileCloseBtnTap'>    /**
+</span>     * Fire an event to notify the &quot;close&quot; button was tapped
+     */
+    onGroupProfileCloseBtnTap: function() {
+        this.fireEvent('groupProfileCloseBtnTap');
+    }
+});</pre>
+</body>
+</html>
